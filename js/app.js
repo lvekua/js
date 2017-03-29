@@ -40,7 +40,7 @@ var shoppingList = {
 
     // Mark off purchased items in shopping list
     checkPurchased: function(position){
-        var l = this.lists[position]
+        var l = this.list[position];
         l.purchased = !l.purchased;
         this.displayItems();
     },
@@ -57,6 +57,16 @@ var shoppingList = {
                 checkedItems++;
             }
         }
-        
+
+        if (checkedItems === totalItems) {
+            for (var i = 0; i < totalItems; i++) {
+                this.list[i].purchased = false;
+            }
+        } else {
+            for (var i = 0; i < totalItems; i++) {
+                this.list[i].purchased = true;
+            }
+        }
+        this.displayItems();
     }
 }
