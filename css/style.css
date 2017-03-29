@@ -11,6 +11,10 @@ body {
   height: 100vh;
 }
 
+
+h1,
+.bt-container {display: block; clear: both; width: 100%; text-align: center;}
+
 .button {
   width: 100px;
   height: 3em;

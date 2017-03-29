@@ -45,7 +45,8 @@ var shoppingList = {
         this.displayItems();
     },
 
-    toggleAll: function(){
+    // Check all items
+    checkAll: function(){
         // find total items
         var totalItems = this.list.length;
         // find all items that are checked
@@ -69,4 +70,15 @@ var shoppingList = {
         }
         this.displayItems();
     }
-}
+};
+
+var displayShoppinglist = document.getElementById('dis-sholi');
+var checkItems = document.getElementById('chck-sli');
+
+displayShoppinglist.addEventListener('click', function(){
+    shoppingList.displayItems();
+});
+
+checkItems.addEventListener('click', function(){
+    shoppingList.checkAll();
+});
