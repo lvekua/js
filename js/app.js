@@ -1,7 +1,5 @@
 var shoppingList = {
-
     list: [],
-
     displayItems: function(){
         if(this.list.length === 0){
             console.log('Shopping list is empty!');
@@ -17,7 +15,7 @@ var shoppingList = {
         }
 
     },
-
+    // Add shopping list item
     addItem: function(newEntry){
         this.list.push({
             newItem: newEntry,
@@ -25,8 +23,7 @@ var shoppingList = {
         });
         this.displayItems();
     },
-
-    //
+    // Edit shopping list item
     editItem: function(position, newEntry){
         this.list[position].newItem = newEntry;
         this.displayItems();
@@ -72,13 +69,34 @@ var shoppingList = {
     }
 };
 
-var displayShoppinglist = document.getElementById('dis-sholi');
-var checkItems = document.getElementById('chck-sli');
+var handlers = {
+    displayShoppinglist: function(){
+        shoppingList.displayItems();
+    },
+    addItem: function(){
+        var addItemInput = document.getElementById('addItemInput');
+        shoppingList.addItem(addItemInput.value);
+        addItemInput.value = '';
+    },
+    editItem: function(){
+        var itemPositionInput = document.getElementById('itemPositionInput');
+        var editItemInput = document.getElementById('editItemInput');
 
-displayShoppinglist.addEventListener('click', function(){
-    shoppingList.displayItems();
-});
-
-checkItems.addEventListener('click', function(){
-    shoppingList.checkAll();
-});
+        shoppingList.editItem(itemPositionInput.valueAsNumber, editItemInput.value);
+        itemPositionInput.value = '';
+        editItemInput.value = '';
+    },
+    removeItem: function(){
+        var removeItemPositionInput = document.getElementById('removeItemPositionInput');
+        shoppingList.removeItem(removeItemPositionInput.valueAsNumber);
+        removeItemPositionInput.value = '';
+    },
+    checkPurchased: function(){
+        var checkAllItemsInput = document.getElementById('checkAllItemsInput');
+        shoppingList.checkPurchased(checkAllItemsInput.valueAsNumber);
+        checkAllItemsInput.value = '';
+    },
+    checkAllItems: function(){
+        shoppingList.checkAll();
+    }
+}

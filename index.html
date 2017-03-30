@@ -8,13 +8,39 @@
 
     <body>
         <div class="container">
-            <h1>Shopping list</h1>
-
-            <div class="bt-container">
-                <button id="dis-sholi" type="button" name="button">Display Shopping List</button>
-                <button id="chck-sli" type="button" name="button">Check Shopping List Items</button>
+            <div class="header-title">
+                <h1>Shopping list</h1>
             </div>
 
+            <div class="bt-container">
+                <button onclick="handlers.displayShoppinglist()">Display Shopping List</button>
+                <button onclick="handlers.checkAllItems()">Check All Shopping List Items</button>
+            </div>
+
+            <div class="bt-container">
+                <input type="text" placeholder="Add new items" id="addItemInput">
+                <button onclick="handlers.addItem()">Add</button>
+            </div>
+
+            <div class="bt-container">
+                <input type="number" id="itemPositionInput">
+                <input type="text" id="editItemInput">
+                <button onclick="handlers.editItem()">Edit Shopping List Item</button>
+            </div>
+
+            <div class="bt-container">
+                <input type="number" id="removeItemPositionInput">
+                <button onclick="handlers.removeItem()">Delete List Item</button>
+            </div>
+
+            <div class="bt-container">
+                <input type="number" id="checkAllItemsInput">
+                <button onclick="handlers.checkPurchased()">Check Purchased Item</button>
+            </div>
+
+            <div class="li-container">
+                <ul></ul>
+            </div>
         </div>
 
     <script src="js/app.js" charset="utf-8"></script>
