@@ -7,41 +7,32 @@
     </head>
 
     <body>
-        <div class="container">
-            <div class="header-title">
-                <h1>Shopping list</h1>
-            </div>
+    <h1>shopping list</h1>
+    <div class="">
+        <button onclick="handlers.displayItems()">display list items</button>
+        <button onclick="handlers.toggleAll()">check all</button>
+    </div>
 
-            <div class="bt-container">
-                <button onclick="handlers.displayShoppinglist()">Display Shopping List</button>
-                <button onclick="handlers.checkAllItems()">Check All Shopping List Items</button>
-            </div>
+    <div class="add-item">
+        <input type="text" id="addItemInput" placeholder="enter an item">
+        <button onclick="handlers.addItem()">add item</button>
+    </div>
 
-            <div class="bt-container">
-                <input type="text" placeholder="Add new items" id="addItemInput">
-                <button onclick="handlers.addItem()">Add</button>
-            </div>
+    <div class="change-item">
+        <input type="number" id="itemPosition">
+        <input type="text" id="editItemInput" placeholder="change item">
+        <button onclick="handlers.editItem()">change item</button>
+    </div>
 
-            <div class="bt-container">
-                <input type="number" id="itemPositionInput">
-                <input type="text" id="editItemInput">
-                <button onclick="handlers.editItem()">Edit Shopping List Item</button>
-            </div>
+    <div class="remove-item">
+        <input type="number" id="itemIndex">
+        <button onclick="handlers.removeItem()">remove item</button>
+    </div>
 
-            <div class="bt-container">
-                <input type="number" id="removeItemPositionInput">
-                <button onclick="handlers.removeItem()">Delete List Item</button>
-            </div>
-
-            <div class="bt-container">
-                <input type="number" id="checkAllItemsInput">
-                <button onclick="handlers.checkPurchased()">Check Purchased Item</button>
-            </div>
-
-            <div class="li-container">
-                <ul></ul>
-            </div>
-        </div>
+    <div class="check-item">
+        <input type="number" id="itemCompleted">
+        <button onclick="handlers.toggleCompleted()">check item</button>
+    </div>
 
     <script src="js/app.js" charset="utf-8"></script>
     </body>

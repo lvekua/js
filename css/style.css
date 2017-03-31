@@ -1,6 +1,39 @@
-*{margin: 0; padding: 0;}
-body{}
-input, button{line-height: 2.1em; padding:7px; box-sizing: border-box; text-transform: uppercase;}
-.header-title{line-height: 7em; text-transform: uppercase;}
-.container {width: 50%; margin:20vh auto; text-align: center;}
-.bt-container {line-height: 3em;}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  line-height: 2em;
+}
+
+.button {
+  width: 100px;
+  height: 3em;
+  border: 3px solid white;
+  outline: 5px inset black;
+  background-color: black;
+  box-shadow: 10px 10px 0px black;
+  transition: box-shadow 0.3s ease-out;
+  box-sizing: border-box;
+  text-align: center;
+}
+.button:hover {
+  box-shadow: 0 0 0 black;
+}
+.button:active {
+  box-shadow: -10px -10px 0 black;
+}
+.button:visited {
+  border: 3px solid yellow;
+}
+.button a {
+  color: white;
+  display: inline-block;
+  font-family: Arial, Helvetica;
+  font-size: 1em;
+  line-height: 3em;
+  text-decoration: none;
+  letter-spacing: 3px;
+  width: 100%;
+}
