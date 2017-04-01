@@ -104,7 +104,7 @@ var handlers = {
     // NOTE: Check completed handler
     toggleCompleted: function(){
         var itemCompleted = document.getElementById('itemCompleted');
-        
+
         shoppingList.toggleCompleted(itemCompleted.valueAsNumber);
         itemCompleted.value = '';
     },
@@ -112,4 +112,26 @@ var handlers = {
     toggleAll: function(){
         shoppingList.toggleAll();
     }
+};
+
+var view = {
+  displayItems: function(){
+      var listUl = document.querySelector('ul');
+      listUl.innerHTML = '';
+
+      for(var i = 0; i < shoppingList.list.length; i++){
+        var listLi = document.createElement('li');
+        var listText =  shoppingList.list[i];
+        var listLiWithCeckbox = '';
+
+        if(listText.completed === true){
+          listLiWithCeckbox = '(X) ' + listText.item;
+        }else{
+          listLiWithCeckbox = '( ) ' +  listText.item;
+        }
+
+        listLi.textContent = listLiWithCeckbox;
+        listUl.appendChild(listLi);
+      }
+  }
 }
