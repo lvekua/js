@@ -1,6 +1,7 @@
 
 var shoppingList = {
     list: [],
+    
     // NOTE: Add new items to shopping list
     addItem: function(newItem){
         this.list.push({
@@ -53,14 +54,12 @@ var shoppingList = {
 };
 
 var handlers = {
-    // NOTE: Add items to shopping list
     addItem: function(){
         var addItemInput = document.getElementById('addItemInput');
         shoppingList.addItem(addItemInput.value);
         addItemInput.value = '';
         view.displayItems();
     },
-    // NOTE: Edit item handler
     editItem: function(){
         var itemPosition = document.getElementById('itemPosition');
         var editItemInput = document.getElementById('editItemInput');
@@ -70,23 +69,18 @@ var handlers = {
         editItemInput.value = '';
         view.displayItems();
     },
-    // NOTE: Remove item handler
     removeItem: function(){
         var itemIndex = document.getElementById('itemIndex');
-
         shoppingList.removeItem(itemIndex.valueAsNumber);
         itemIndex.value = '';
         view.displayItems();
     },
-    // NOTE: Check completed handler
     toggleCompleted: function(){
         var itemCompleted = document.getElementById('itemCompleted');
-
         shoppingList.toggleCompleted(itemCompleted.valueAsNumber);
         itemCompleted.value = '';
         view.displayItems();
     },
-    // NOTE: Check all handler
     toggleAll: function(){
         shoppingList.toggleAll();
         view.displayItems();
@@ -97,41 +91,19 @@ var view = {
     displayItems: function(){
         var listUl = document.querySelector('ul');
         listUl.innerHTML = '';
-        for (var i = 0; i < shoppingList.list.length; i++) {
+
+        for(var i = 0; i < shoppingList.list.length; i++){
             var listLi = document.createElement('li');
             var list = shoppingList.list[i];
-            var listPurchasedItems = '';
+            var completedText = '';
 
-            if (list.completed === true) {
-                listPurchasedItems = '(X) ' + list.item;
-            } else {
-                listPurchasedItems = '( ) ' + list.item;
-            }
-
-            listLi.textContent = listPurchasedItems;
+                if(list.completed === true){
+                    completedText = '(X) ' + list.item;
+                }else{
+                    completedText = '( ) ' + list.item;
+                }
+            listLi.textContent = completedText;
             listUl.appendChild(listLi);
         }
     }
 };
-
-var view = {
-  displayItems: function(){
-      var listUl = document.querySelector('ul');
-      listUl.innerHTML = '';
-
-      for(var i = 0; i < shoppingList.list.length; i++){
-        var listLi = document.createElement('li');
-        var listText =  shoppingList.list[i];
-        var listLiWithCeckbox = '';
-
-        if(listText.completed === true){
-          listLiWithCeckbox = '(X) ' + listText.item;
-        }else{
-          listLiWithCeckbox = '( ) ' +  listText.item;
-        }
-
-        listLi.textContent = listLiWithCeckbox;
-        listUl.appendChild(listLi);
-      }
-  }
-}
