@@ -1,53 +1,31 @@
 
 var shoppingList = {
     list: [],
-
-    // NOTE: Display shopping list items
-    displayItems: function(){
-        if (this.list.length === 0) {
-            console.log('your shopping list is empty!');
-        } else{
-            console.log('shopping list:');
-            for(var i = 0; i < this.list.length; i++){
-                 if (this.list[i].completed === false) {
-                     console.log('( )', this.list[i].item);
-                 } else {
-                     console.log('(X)', this.list[i].item);
-                 }
-            }
-        }
-    },
-
     // NOTE: Add new items to shopping list
     addItem: function(newItem){
         this.list.push({
             item: newItem,
             completed: false
         });
-        this.displayItems();
     },
 
     // NOTE: Edit desired item with new value
     editItem: function(position, newValue){
         this.list[position].item = newValue;
-        this.displayItems();
     },
 
     // NOTE: Remove an item from shopping list
     removeItem: function(position){
         this.list.splice(position, 1);
-        this.displayItems();
     },
 
     // NOTE: Check off completed or purchased item
     toggleCompleted: function(position){
         var l = this.list[position];
         l.completed = !l.completed;
-        this.displayItems();
     },
-
+    // NOTE: Check all purchased items
     toggleAll: function(){
-
         // NOTE: Define variables for total items and checked off items in the list
         var totalItems = this.list.length;
         var purchasedItems = 0;
@@ -71,19 +49,16 @@ var shoppingList = {
                 this.list[i].completed = true;
             }
         }
-        this.displayItems();
     }
 };
 
 var handlers = {
-    // NOTE: Display items handler
-    displayItems: function(){
-        shoppingList.displayItems();
-    },
+    // NOTE: Add items to shopping list
     addItem: function(){
         var addItemInput = document.getElementById('addItemInput');
         shoppingList.addItem(addItemInput.value);
         addItemInput.value = '';
+        view.displayItems();
     },
     // NOTE: Edit item handler
     editItem: function(){
@@ -93,6 +68,7 @@ var handlers = {
         shoppingList.editItem(itemPosition.valueAsNumber, editItemInput.value);
         itemPosition.value = '';
         editItemInput.value = '';
+        view.displayItems();
     },
     // NOTE: Remove item handler
     removeItem: function(){
@@ -100,16 +76,41 @@ var handlers = {
 
         shoppingList.removeItem(itemIndex.valueAsNumber);
         itemIndex.value = '';
+        view.displayItems();
     },
     // NOTE: Check completed handler
     toggleCompleted: function(){
         var itemCompleted = document.getElementById('itemCompleted');
-        
+
         shoppingList.toggleCompleted(itemCompleted.valueAsNumber);
         itemCompleted.value = '';
+        view.displayItems();
     },
     // NOTE: Check all handler
     toggleAll: function(){
         shoppingList.toggleAll();
+        view.displayItems();
     }
+};
+
+var view = {
+    displayItems: function(){
+        var listUl = document.querySelector('ul');
+        listUl.innerHTML = '';
+        for (var i = 0; i < shoppingList.list.length; i++) {
+            var listLi = document.createElement('li');
+            var list = shoppingList.list[i];
+            var listPurchasedItems = '';
+
+            if (list.completed === true) {
+                listPurchasedItems = '(X) ' + list.item;
+            } else {
+                listPurchasedItems = '( ) ' + list.item;
+            }
+
+            listLi.textContent = listPurchasedItems;
+            listUl.appendChild(listLi);
+        }
+    }
+
 }
