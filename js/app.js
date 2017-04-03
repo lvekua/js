@@ -112,9 +112,6 @@ var view = {
             listUl.appendChild(listLi);
         }
     }
-<<<<<<< HEAD
-
-=======
 };
 
 var view = {
@@ -137,5 +134,4 @@ var view = {
         listUl.appendChild(listLi);
       }
   }
->>>>>>> origin/master
 }
