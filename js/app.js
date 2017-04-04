@@ -1,7 +1,7 @@
 
 var shoppingList = {
     list: [],
-    
+
     // NOTE: Add new items to shopping list
     addItem: function(newItem){
         this.list.push({
@@ -107,3 +107,8 @@ var view = {
         }
     }
 };
+
+var btn = document.getElementById('test-btn');
+btn.addEventListener('mouseover', function(){
+    console.log('yoyoyoyoy check this out!');
+});
