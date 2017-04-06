@@ -1,137 +1,109 @@
-
 var shoppingList = {
-    list: [],
 
-    // NOTE: Display shopping list items
-    displayItems: function(){
-        if (this.list.length === 0) {
-            console.log('your shopping list is empty!');
-        } else{
-            console.log('shopping list:');
-            for(var i = 0; i < this.list.length; i++){
-                 if (this.list[i].completed === false) {
-                     console.log('( )', this.list[i].item);
-                 } else {
-                     console.log('(X)', this.list[i].item);
-                 }
-            }
-        }
-    },
+// NOTE: Shopping list array
+  listItems: [],
 
-    // NOTE: Add new items to shopping list
-    addItem: function(newItem){
-        this.list.push({
-            item: newItem,
-            completed: false
-        });
-        this.displayItems();
-    },
+// NOTE: Add item to shopping list
+  itemAdd: function(itemText){
+    this.listItems.push({
+      item: itemText,
+      completed: false
+    });
+    view.displayItems();
+  },
 
-    // NOTE: Edit desired item with new value
-    editItem: function(position, newValue){
-        this.list[position].item = newValue;
-        this.displayItems();
-    },
+// NOTE: Edit item
+  itemEdit: function(position, newValue){
+    this.listItems[position].item = newValue;
+    view.displayItems();
+  },
 
-    // NOTE: Remove an item from shopping list
-    removeItem: function(position){
-        this.list.splice(position, 1);
-        this.displayItems();
-    },
+// NOTE: Remove item
+  itemRemove: function(position){
+    this.listItems.splice(position, 1);
+    view.displayItems();
+  },
 
-    // NOTE: Check off completed or purchased item
-    toggleCompleted: function(position){
-        var l = this.list[position];
-        l.completed = !l.completed;
-        this.displayItems();
-    },
+// NOTE: Check off item
+  itemCheck: function(position, completedTxt){
+      var listItems = this.listItems[position];
+      listItems.completed = !listItems.completed;
+      view.displayItems();
+  },
 
-    toggleAll: function(){
+// NOTE: Check all items
+  itemCheckAll: function(){
+    var totalItems = this.listItems.length;
+    var checkedItems = 0;
 
-        // NOTE: Define variables for total items and checked off items in the list
-        var totalItems = this.list.length;
-        var purchasedItems = 0;
-
-        // NOTE: Find if an item is checked off and increas purchasedItems variable
-        for(var i = 0; i < totalItems; i++){
-            if(this.list[i].completed === true) {
-                purchasedItems++;
-            }
-        }
-
-        // NOTE: If all items in the list are checked off, then ucheck all
-        if(purchasedItems === totalItems){
-            for (var i = 0; i < totalItems; i++) {
-                this.list[i].completed = false;
-            }
-
-        // NOTE: Otherwise if all items are unchecked, check off all items
-        } else {
-            for (var i = 0; i < totalItems; i++) {
-                this.list[i].completed = true;
-            }
-        }
-        this.displayItems();
+    for(var i = 0; i < totalItems; i++){
+      if(this.listItems[i].completed === true){
+        checkedItems++;
+      }
     }
+
+    if(checkedItems === totalItems){
+      for(var i = 0; i < totalItems; i++){
+        this.listItems[i].completed = false;
+      }
+    } else {
+      for(var i = 0; i < totalItems; i++){
+        this.listItems[i].completed = true;
+      }
+    }
+
+    view.displayItems();
+  }
 };
 
 var handlers = {
-    // NOTE: Display items handler
-    displayItems: function(){
-        shoppingList.displayItems();
-    },
-    addItem: function(){
-        var addItemInput = document.getElementById('addItemInput');
-        shoppingList.addItem(addItemInput.value);
-        addItemInput.value = '';
-    },
-    // NOTE: Edit item handler
-    editItem: function(){
-        var itemPosition = document.getElementById('itemPosition');
-        var editItemInput = document.getElementById('editItemInput');
 
-        shoppingList.editItem(itemPosition.valueAsNumber, editItemInput.value);
-        itemPosition.value = '';
-        editItemInput.value = '';
-    },
-    // NOTE: Remove item handler
-    removeItem: function(){
-        var itemIndex = document.getElementById('itemIndex');
+  addItem: function(){
+    var addItemInput = document.getElementById('addItemInput');
+    shoppingList.itemAdd(addItemInput.value);
+    addItemInput.value = '';
+  },
+  editItem: function(){
+    var itemPosition = document.getElementById('itemPosition');
+    var editItemInput = document.getElementById('editItemInput');
 
-        shoppingList.removeItem(itemIndex.valueAsNumber);
-        itemIndex.value = '';
-    },
-    // NOTE: Check completed handler
-    toggleCompleted: function(){
-        var itemCompleted = document.getElementById('itemCompleted');
+    shoppingList.itemEdit(itemPosition.valueAsNumber, editItemInput.value);
+    itemPosition.value = '';
+    editItemInput.value = '';
+  },
+  removeItem: function(){
+    var itemPos = document.getElementById('itemPos');
+    shoppingList.itemRemove(itemPos.valueAsNumber);
+    itemPos.value = '';
+  },
+  checkItem: function(){
+    var itemIndex = document.getElementById('itemCompleted');
+    shoppingList.itemCheck(itemCompleted.valueAsNumber);
+    itemIndex.value = '';
+  }
 
-        shoppingList.toggleCompleted(itemCompleted.valueAsNumber);
-        itemCompleted.value = '';
-    },
-    // NOTE: Check all handler
-    toggleAll: function(){
-        shoppingList.toggleAll();
-    }
 };
 
 var view = {
+  
   displayItems: function(){
-      var listUl = document.querySelector('ul');
-      listUl.innerHTML = '';
+    var listUl = document.querySelector('ul');
+    listUl.innerHTML = '';
 
-      for(var i = 0; i < shoppingList.list.length; i++){
-        var listLi = document.createElement('li');
-        var listText =  shoppingList.list[i];
-        var listLiWithCeckbox = '';
+    for (var i = 0; i < shoppingList.listItems.length; i++) {
+      var listLi = document.createElement('li');
+      var listText = shoppingList.listItems[i];
+      var listLiWithCheckbox = '';
 
-        if(listText.completed === true){
-          listLiWithCeckbox = '(X) ' + listText.item;
-        }else{
-          listLiWithCeckbox = '( ) ' +  listText.item;
-        }
-
-        listLi.textContent = listLiWithCeckbox;
-        listUl.appendChild(listLi);
+      if(listText.completed === true){
+        listLiWithCheckbox = '(X) ' + listText.item;
+      } else{
+        listLiWithCheckbox = '( ) ' + listText.item;
       }
+
+      listLi.textContent = listLiWithCheckbox;
+      listUl.appendChild(listLi);
+    }
   }
-}
+
+};
