@@ -1,114 +1,127 @@
+var todolist = {
 
-var shoppingList = {
-    list: [],
+// NOTE: todo array
+    todo: [],
 
-    // NOTE: Add new items to shopping list
-    addItem: function(newItem){
-        this.list.push({
-            item: newItem,
+// NOTE: add new items to todo list
+    addItem: function(itemValue){
+        this.todo.push({
+            item: itemValue,
             completed: false
         });
+        view.displayTodos();
     },
 
-    // NOTE: Edit desired item with new value
-    editItem: function(position, newValue){
-        this.list[position].item = newValue;
+// NOTE: edit items in todo list
+    editItem: function(itemIndex, itemValue){
+        this.todo[itemIndex].item = itemValue;
+        view.displayTodos();
     },
 
-    // NOTE: Remove an item from shopping list
-    removeItem: function(position){
-        this.list.splice(position, 1);
+// NOTE: remove items from todo list
+    removeItem: function(itemIndex){
+        this.todo.splice(itemIndex, 1);
+        view.displayTodos();
     },
 
-    // NOTE: Check off completed or purchased item
-    toggleCompleted: function(position){
-        var l = this.list[position];
-        l.completed = !l.completed;
+// NOTE: check completed items in todo list
+    toggleTodo: function(itemIndex){
+        var itemDone = this.todo[itemIndex];
+        itemDone.completed = !itemDone.completed;
+        view.displayTodos();
     },
-    // NOTE: Check all purchased items
+
+// NOTE: check all items in todo list
     toggleAll: function(){
-        // NOTE: Define variables for total items and checked off items in the list
-        var totalItems = this.list.length;
-        var purchasedItems = 0;
+        var totalTodos = this.todo.length;
+        var completedTodos = 0;
 
-        // NOTE: Find if an item is checked off and increas purchasedItems variable
-        for(var i = 0; i < totalItems; i++){
-            if(this.list[i].completed === true) {
-                purchasedItems++;
+        for(var i = 0; i < totalTodos; i++){
+            if(this.todo[i].completed === true){
+                completedTodos++
             }
         }
 
-        // NOTE: If all items in the list are checked off, then ucheck all
-        if(purchasedItems === totalItems){
-            for (var i = 0; i < totalItems; i++) {
-                this.list[i].completed = false;
+        if(completedTodos === totalTodos){
+            for (var i = 0; i < totalTodos; i++) {
+                this.todo[i].completed = false;
             }
-
-        // NOTE: Otherwise if all items are unchecked, check off all items
-        } else {
-            for (var i = 0; i < totalItems; i++) {
-                this.list[i].completed = true;
+        } else{
+            for (var i = 0; i < totalTodos; i++) {
+                this.todo[i].completed = true;
             }
         }
+        view.displayTodos();
     }
+
 };
 
 var handlers = {
-    addItem: function(){
-        var addItemInput = document.getElementById('addItemInput');
-        shoppingList.addItem(addItemInput.value);
-        addItemInput.value = '';
-        view.displayItems();
+
+    displayTodos: function(){
+        todolist.displayTodos();
+    },
+    addTodo: function() {
+        var todoItem = document.getElementById('addTodo');
+        todolist.addItem(todoItem.value);
+        todoItem.value = '';
     },
     editItem: function(){
-        var itemPosition = document.getElementById('itemPosition');
-        var editItemInput = document.getElementById('editItemInput');
+        var itemIndex = document.getElementById('itemIndex');
+        var itemValue = document.getElementById('itemValue');
+        todolist.editItem(itemIndex.valueAsNumber, itemValue.value);
 
-        shoppingList.editItem(itemPosition.valueAsNumber, editItemInput.value);
-        itemPosition.value = '';
-        editItemInput.value = '';
-        view.displayItems();
+        itemIndex.value = '';
+        itemValue.value = '';
     },
     removeItem: function(){
-        var itemIndex = document.getElementById('itemIndex');
-        shoppingList.removeItem(itemIndex.valueAsNumber);
-        itemIndex.value = '';
-        view.displayItems();
+        var itemPosition = document.getElementById('itemPosition');
+        todolist.removeItem(itemPosition.valueAsNumber);
+
+        itemPosition.value = '';
     },
-    toggleCompleted: function(){
-        var itemCompleted = document.getElementById('itemCompleted');
-        shoppingList.toggleCompleted(itemCompleted.valueAsNumber);
-        itemCompleted.value = '';
-        view.displayItems();
+    toggleTodo: function(){
+        var itemToCheck = document.getElementById('itemToCheck');
+        todolist.toggleTodo(itemToCheck.valueAsNumber);
+
+        itemToCheck.value = '';
     },
     toggleAll: function(){
-        shoppingList.toggleAll();
-        view.displayItems();
+        todolist.toggleAll();
     }
+
 };
 
 var view = {
-    displayItems: function(){
-        var listUl = document.querySelector('ul');
-        listUl.innerHTML = '';
 
-        for(var i = 0; i < shoppingList.list.length; i++){
-            var listLi = document.createElement('li');
-            var list = shoppingList.list[i];
-            var completedText = '';
+    displayTodos: function(){
+        var todoUl = document.querySelector('ul');
+        var todoTitle = document.getElementById('todoTitle');
+        var todoTitleText = '';
+        todoUl.innerHTML = '';
 
-                if(list.completed === true){
-                    completedText = '(X) ' + list.item;
-                }else{
-                    completedText = '( ) ' + list.item;
+        if (todolist.todo.length === 0) {
+            todoTitleText = 'EMPTY TODO!';
+        } else{
+            todoTitleText = 'TODO:';
+        }
+
+        todoTitle.textContent = todoTitleText
+
+        for (var i = 0; i < todolist.todo.length; i++) {
+            var todoLi = document.createElement('li');
+            var itemValue = todolist.todo[i];
+            var itemText = '';
+
+                if (itemValue.completed === true) {
+                    itemText = '(X) ' + itemValue.item;
+                } else{
+                    itemText = '( ) ' + itemValue.item;
                 }
-            listLi.textContent = completedText;
-            listUl.appendChild(listLi);
+
+            todoLi.textContent = itemText;
+            todoUl.appendChild(todoLi);
         }
     }
-};
 
-var btn = document.getElementById('test-btn');
-btn.addEventListener('mouseover', function(){
-    console.log('yoyoyoyoy check this out!');
-});
+}

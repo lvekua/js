@@ -7,41 +7,36 @@
     </head>
 
     <body>
-    <h1>shopping list</h1>
-    <div class="">
-        <button onclick="handlers.toggleAll()">check all</button>
-    </div>
+        <h1 id="todoTitle">EMPTY TODO!</h1>
 
-    <div class="add-item">
-        <input type="text" id="addItemInput" placeholder="enter an item">
-        <button onclick="handlers.addItem()">add item</button>
-    </div>
+        <div class="">
+            <button type="button" onclick="handlers.toggleAll()">check all</button>
+        </div>
 
-    <div class="change-item">
-        <input type="number" id="itemPosition">
-        <input type="text" id="editItemInput" placeholder="change item">
-        <button onclick="handlers.editItem()">change item</button>
-    </div>
+        <div class="">
+            <input type="text" placeholder="Add Todo..." id="addTodo">
+            <button type="button" onclick="handlers.addTodo()">Add</button>
+        </div>
 
-    <div class="remove-item">
-        <input type="number" id="itemIndex">
-        <button onclick="handlers.removeItem()">remove item</button>
-    </div>
+        <div class="">
+            <input type="number" id="itemIndex">
+            <input type="text" id="itemValue">
+            <button type="button" onclick="handlers.editItem()">Edit</button>
+        </div>
 
-    <div class="check-item">
-        <input type="number" id="itemCompleted">
-        <button onclick="handlers.toggleCompleted()">check item</button>
-    </div>
+        <div class="">
+            <input type="number" id="itemPosition">
+            <button type="button" onclick="handlers.removeItem()">Remove</button>
+        </div>
 
-    <div class="list-items">
-        <ul>
+        <div class="">
+            <input type="number" id="itemToCheck">
+            <button type="button" onclick="handlers.toggleTodo()">Check</button>
+        </div>
 
-        </ul>
-    </div>
-
-    <div class="btn">
-        <button id="test-btn">test button</button>
-    </div>
+        <div class="">
+            <ul></ul>
+        </div>
 
     <script src="js/app.js" charset="utf-8"></script>
     </body>
