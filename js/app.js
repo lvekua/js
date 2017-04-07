@@ -100,10 +100,10 @@ var view = {
         var todoTitleText = '';
         todoUl.innerHTML = '';
 
-        if (todolist.todo.length === 0) {
-            todoTitleText = 'EMPTY TODO!';
+        if (todolist.todo.length > 0) {
+            todoTitleText = 'TODO ITEMS:';
         } else{
-            todoTitleText = 'TODO:';
+            todoTitleText = 'YOUR TODO IS EMPTY!';
         }
 
         todoTitle.textContent = todoTitleText

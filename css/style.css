@@ -3,7 +3,7 @@ body {
   padding: 0;
 }
 
-h1, div {
+h1, h3, div {
   line-height: 2em;
   text-align: center;
 }
